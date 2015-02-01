@@ -51,6 +51,8 @@ void InotifyManager::readLoop(InotifyManager *m){
 		
 		if(!term)
 			e = new InotifyEvent(m);
+		else
+			e = 0;
 	}
 }
 
