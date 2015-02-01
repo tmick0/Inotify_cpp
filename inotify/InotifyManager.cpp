@@ -27,7 +27,6 @@ InotifyManager::~InotifyManager(){
 		INOTIFY_ERR_MSG("close", errstr, INOTIFY_ERR_LEN);
 		throw InotifyException(errstr);
 	}
-	fd = -1;
 }
 
 InotifyWatch* InotifyManager::addWatch(std::string path, uint32_t flags){

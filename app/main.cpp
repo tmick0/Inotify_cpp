@@ -3,9 +3,12 @@
 
 #include "InotifyManager.h"
 
-
 using namespace std;
 
+/** A simple implementation of the InotifyEventHandler interface for the demo
+	application. It will print the name and type of each event it receives, then
+	ask the InotifyManager to terminate after the 5th event.
+*/
 class MyEventHandler : public InotifyEventHandler {
 private:
 	int eventCount = 0;
@@ -31,6 +34,10 @@ public:
 	}
 };
 
+/**	The directory specified in the first command line argument will be watched
+	for creation and deletion events. Each event will be handled by the
+	MyEventHandler class.
+*/
 int main(int argc, char *argv[]){
 
 	if(argc != 2){
@@ -46,7 +53,6 @@ int main(int argc, char *argv[]){
 	w->addEventHandler(h);
 	
 	thread t = m.startWatching();
-	
 	t.join();
 	
 	return 0;
