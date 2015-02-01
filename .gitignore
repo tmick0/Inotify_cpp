@@ -23,6 +23,7 @@
 *.lib
 
 # Executables
+/inotifier
 *.exe
 *.out
 *.app
