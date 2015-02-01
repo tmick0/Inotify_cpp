@@ -13,6 +13,7 @@ class InotifyWatch;
 class InotifyWatch {
 
 	friend class InotifyManager;
+	friend class InotifyEvent;
 
 	private:
 		InotifyManager& man;
@@ -22,7 +23,7 @@ class InotifyWatch {
 		std::set<InotifyEventHandler*> handlers;
 		
 		void init();
-		void event(InotifyEvent& e);
+		bool event(InotifyEvent& e);
 	
 	public:
 		/* constructors */

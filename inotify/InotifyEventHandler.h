@@ -6,7 +6,7 @@
 class InotifyEventHandler {
 
 	public:
-		virtual void handle(InotifyEvent &e) = 0;
+		virtual bool handle(InotifyEvent &e) = 0;
 };
 
 #endif

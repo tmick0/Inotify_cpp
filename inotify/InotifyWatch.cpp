@@ -29,11 +29,14 @@ void InotifyWatch::init(){
 	}
 }
 
-void InotifyWatch::event(InotifyEvent& e){
+bool InotifyWatch::event(InotifyEvent& e){
 	std::set<InotifyEventHandler *>::iterator it;
+	bool term = false;
 	for(it = handlers.begin(); it != handlers.end(); it++){
-		(*it)->handle(e);
+		bool r = (*it)->handle(e);
+		term = term ? term : r;
 	}
+	return term;
 }
 
 void InotifyWatch::addEventHandler(InotifyEventHandler &h){

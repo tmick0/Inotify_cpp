@@ -4,6 +4,7 @@
 class InotifyManager;
 
 #include "InotifyWatch.h"
+#include <thread>
 #include <map>
 
 class InotifyManager {
@@ -13,12 +14,13 @@ class InotifyManager {
 	private:
 		int fd;
 		std::map<int, InotifyWatch*> watchSet;
+		static void readLoop(InotifyManager *m);
 		
 	public:
 		InotifyManager();
 		~InotifyManager();
 		InotifyWatch* addWatch(std::string path, uint32_t flags);
-		InotifyWatch  startWatching();
+		std::thread startWatching();
 };
 
 #endif

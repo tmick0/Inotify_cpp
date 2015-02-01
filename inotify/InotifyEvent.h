@@ -1,22 +1,29 @@
 #ifndef InotifyEvent_h
 #define InotifyEvent_h
 
+#include <cstdint>
+#include <cstring>
+#include <string>
+
+class InotifyEvent;
+
 #include "InotifyCommon.h"
 #include "InotifyWatch.h"
 #include "InotifyManager.h"
 
-#include <cstdint>
-#include <string>
-
 class InotifyEvent {
+	friend class InotifyManager;
+
 	private:
-		InotifyManager& manager;
-		InotifyWatch& watch;
+		InotifyManager* manager;
+		InotifyWatch* watch;
 		uint8_t buf[INOTIFY_MAX_SIZE];
+		bool trigger();
+		
 	public:
-		InotifyEvent(InotifyManager& man, InotifyWatch& watch);
-		InotifyWatch& getWatch();
-		InotifyManager& getManager();
+		InotifyEvent(InotifyManager* man);
+		InotifyWatch* getWatch();
+		InotifyManager* getManager();
 		uint32_t getFlags();
 		std::string getName();
 };

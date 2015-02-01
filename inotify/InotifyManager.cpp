@@ -1,6 +1,7 @@
 #include "InotifyManager.h"
 #include "InotifyException.h"
 #include "InotifyCommon.h"
+#include "InotifyEvent.h"
 
 #include <sys/inotify.h>
 #include <unistd.h>
@@ -35,3 +36,25 @@ InotifyWatch* InotifyManager::addWatch(std::string path, uint32_t flags){
 	return w;
 }
 
+void InotifyManager::readLoop(InotifyManager *m){
+	uint32_t n;
+	InotifyEvent *e = new InotifyEvent(m);
+	
+	while(e && (n = read(m->fd, e->buf, INOTIFY_MAX_SIZE)) > 0){
+		struct inotify_event *es = (struct inotify_event *) e->buf;
+		bool term = false;
+		
+		e->watch = m->watchSet[es->wd];
+		term = e->trigger();
+		
+		delete e;
+		
+		if(!term)
+			e = new InotifyEvent(m);
+	}
+}
+
+std::thread InotifyManager::startWatching(){
+	std::thread t(readLoop, this);
+	return t;
+}
