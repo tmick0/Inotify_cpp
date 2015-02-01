@@ -1,7 +1,7 @@
 DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = "Inotify_cpp"
 PROJECT_NUMBER         =
-PROJECT_BRIEF          = A C++ encapsulation of the inotify API
+PROJECT_BRIEF          = "A C++ encapsulation of the inotify API"
 PROJECT_LOGO           =
 OUTPUT_DIRECTORY       = docs
 CREATE_SUBDIRS         = NO
