@@ -9,7 +9,7 @@ all: $(NOTIFY_LIB) $(NOTIFY_APP)
 $(NOTIFY_LIB): inotify/Makefile $(LIB_SRC)
 	$(MAKE) -C inotify
 	
-$(NOTIFY_APP): app/Makefile $(APP_SRC)
+$(NOTIFY_APP): app/Makefile $(NOTIFY_LIB) $(APP_SRC)
 	$(MAKE) -C app
 	
 clean: 
