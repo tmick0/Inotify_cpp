@@ -1,17 +1,14 @@
-CXX=g++
-CXXFLAGS=-g -Wall -Wpedantic -Werror -std=c++11
+NOTIFY_LIB=inotify_cpp.a
+NOTIFY_APP=inotifier
 
-SOURCES=$(wildcard *.cpp)
-OBJECTS=$(SOURCES:.cpp=.o)
-OUTPUT=inotify_cpp.a
+all: $(NOTIFY_LIB) $(NOTIFY_APP)
 
-all: $(OUTPUT)
-
-$(OUTPUT): $(OBJECTS)
-	ar cr $@ $(OBJECTS)
+$(NOTIFY_LIB): inotify/Makefile
+	$(MAKE) -C inotify
 	
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
+$(NOTIFY_APP): app/Makefile
+	$(MAKE) -C app
 	
-clean:
-	rm -f $(OUTPUT) $(OBJECTS)
+clean: 
+	$(MAKE) -C inotify clean
+	$(MAKE) -C app clean
