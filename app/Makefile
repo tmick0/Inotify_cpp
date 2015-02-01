@@ -1,6 +1,6 @@
 CXX=g++
 CXXFLAGS=-g -Wall -Wpedantic -Werror -std=c++11 -I../inotify
-LDFLAGS=
+LDFLAGS=-lpthread
 
 SOURCES=$(wildcard *.cpp)
 OBJECTS=$(SOURCES:.cpp=.o)
@@ -17,7 +17,6 @@ $(OUTPUT): $(INOTIFY) $(OBJECTS)
 	
 $(INOTIFY): ../inotify/Makefile
 	$(MAKE) -C ../inotify $(INOTIFY)
-	
 	
 clean:
 	rm -f $(OUTPUT) $(OBJECTS)
