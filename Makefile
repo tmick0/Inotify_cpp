@@ -1,12 +1,15 @@
 NOTIFY_LIB=inotify_cpp.a
 NOTIFY_APP=inotifier
 
+LIB_SRC=$(wildcard inotify/*.cpp)
+APP_SRC=$(wildcard app/*.cpp)
+
 all: $(NOTIFY_LIB) $(NOTIFY_APP)
 
-$(NOTIFY_LIB): inotify/Makefile
+$(NOTIFY_LIB): inotify/Makefile $(LIB_SRC)
 	$(MAKE) -C inotify
 	
-$(NOTIFY_APP): app/Makefile
+$(NOTIFY_APP): app/Makefile $(APP_SRC)
 	$(MAKE) -C app
 	
 clean: 
