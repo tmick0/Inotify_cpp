@@ -14,9 +14,9 @@ InotifyManager::InotifyManager(){
 
 InotifyManager::~InotifyManager(){
 	/* Delete our InotifyWatches */
-	std::set<InotifyWatch*>::iterator it;
+	std::map<int,InotifyWatch*>::iterator it;
 	for(it = watchSet.begin(); it != watchSet.end(); it++){
-		delete *it;
+		delete it->second;
 	}
 	watchSet.clear();
 
@@ -31,7 +31,7 @@ InotifyManager::~InotifyManager(){
 
 InotifyWatch* InotifyManager::addWatch(std::string path, uint32_t flags){
 	InotifyWatch* w = new InotifyWatch(*this, path, flags);
-	watchSet.insert(w);
+	watchSet.insert(std::pair<int,InotifyWatch*>(w->wd, w));
 	return w;
 }
 
