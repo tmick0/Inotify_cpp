@@ -20,6 +20,10 @@ InotifyManager::~InotifyManager(){
 		delete it->second;
 	}
 	watchSet.clear();
+
+    if (fd != -1) {
+        close(fd);
+    }
 }
 
 InotifyWatch* InotifyManager::addWatch(std::string path, uint32_t flags){
