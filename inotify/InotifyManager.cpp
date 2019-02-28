@@ -21,12 +21,9 @@ InotifyManager::~InotifyManager(){
 	}
 	watchSet.clear();
 
-	/* Close inotify fd */
-	if(fd != -1 && close(this->fd)){
-		char errstr[INOTIFY_ERR_LEN];
-		INOTIFY_ERR_MSG("close", errstr, INOTIFY_ERR_LEN);
-		throw InotifyException(errstr);
-	}
+    if (fd != -1) {
+        close(fd);
+    }
 }
 
 InotifyWatch* InotifyManager::addWatch(std::string path, uint32_t flags){

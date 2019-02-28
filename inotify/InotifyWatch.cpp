@@ -11,13 +11,7 @@ InotifyWatch::InotifyWatch(InotifyManager& m, std::string p, uint32_t f)
 }
 
 InotifyWatch::~InotifyWatch(){
-	int r;
-	r = inotify_rm_watch(man.fd, wd);
-	if(r == -1){
-		char errstr[INOTIFY_ERR_LEN];
-		INOTIFY_ERR_MSG("inotify_rm_watch", errstr, INOTIFY_ERR_LEN);
-		throw InotifyException(errstr);
-	}
+	inotify_rm_watch(man.fd, wd);
 }
 
 void InotifyWatch::init(){
